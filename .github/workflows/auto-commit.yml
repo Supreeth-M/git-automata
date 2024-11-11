@@ -1,0 +1,37 @@
+name: Automated Commits
+
+on:
+  schedule:
+    # This cron expression runs at 8:00 PM IST (2:30 PM UTC)
+    - cron: '30 14 * * *'  # Adjusted for IST (Indian Standard Time)
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Make realistic change to files
+        run: |
+          # Apply small, meaningful changes to the files
+          sed -i 's/version: 1.0/version: 1.1/' config.yaml
+          echo "Updated on $(date)" >> README.md
+          echo "Auto-generated commit at $(date)" > daily_update.txt
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'godhaniripal'
+          git config --global user.email 'ripal.godhani@gmail.com'
+          
+          # Stage the files that have been changed or added
+          git add README.md config.yaml daily_update.txt
+          
+          # Commit the changes
+          git commit -m "this commit at $(date)"
+          
+          # Push the changes to the repository
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
