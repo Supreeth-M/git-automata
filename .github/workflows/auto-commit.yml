@@ -24,8 +24,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.name 'godhaniripal'
-          git config --global user.email 'ripal.godhani@gmail.com'
+          git config --global user.name 'Supreeth-M'
+          git config --global user.email 'Supreethchandum@gmail.com'
           
           # Stage the files that have been changed or added
           git add README.md config.yaml daily_update.txt
